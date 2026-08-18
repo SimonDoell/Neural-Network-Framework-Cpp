@@ -17,40 +17,70 @@ void trainBatch(NeuralNetwork& network, uint32_t batch_size) {
 
         float rand_x = randFloat(0, 1);
 
-        inputs.back()  = (std::vector<float>){rand_x};
-        outputs.back() = (std::vector<float>){learnFunc(rand_x)};
+        inputs.back()  = (std::vector<Matrix::value_type>){rand_x};
+        outputs.back() = (std::vector<Matrix::value_type>){learnFunc(rand_x)};
     }
 
     network.train(inputs, outputs);
 }
 
 void testAndPrint(NeuralNetwork& network, uint32_t count) {
+    float sum = 0.0f;
+    
     for (uint32_t i = 0; i < count; ++i) {
         float rand_x = randFloat(0, 1);
 
         Matrix input = Matrix::Vector(1);
-        input = (std::vector<float>){rand_x};
+        input = (std::vector<Matrix::value_type>){rand_x};
 
         Matrix res = network.forward(input);
 
         float expected = learnFunc(rand_x);
         float err = std::abs(expected - res[0]);
 
+        sum += err;
+        
         std::cout << "Err: " << err << "\n";
     }
+
+    sum /= static_cast<float>(count);
+
+    std::cout << "\nAvg: " << sum << "\n";
 }
 
 int main() {
+    srand(time(0));
+    using LinearType = Linear<XavierInit, Adam<>>;
+    
     NeuralNetwork network(
-        Linear<>(1, 32),
-        ActivationLayer<ReLU<>>(),
-        Linear<>(32, 16),
-        ActivationLayer<ReLU<>>(),
-        Linear<>(16, 8),
+        LinearType(1, 32),
+        ActivationLayer<Softsign<>>(),
+        LinearType(32, 16),
+        ActivationLayer<Softsign<>>(),
+        LinearType(16, 8),
         ActivationLayer<Tanh<>>(),
-        Linear<>(8, 1)
+        LinearType(8, 1)
     );
 
+    network.learning_rate = 0.01f;
+
+    for (uint32_t i = 0; i < 100'000; ++i) {
+        trainBatch(network, 2);
+    }
+
+    for (uint32_t i = 0; i < 20'000; ++i) {
+        trainBatch(network, 4);
+    }
+
+    for (uint32_t i = 0; i < 2'000; ++i) {
+        trainBatch(network, 16);
+    }
+
+    for (uint32_t i = 0; i < 1'000; ++i) {
+        trainBatch(network, 64);
+    }
+
+    testAndPrint(network, 10'000);
     
     return 0;
 }

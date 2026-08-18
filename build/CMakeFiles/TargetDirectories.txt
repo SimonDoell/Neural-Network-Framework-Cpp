@@ -1,3 +1,0 @@
-/home/simon/Desktop/GitHub_Proj/Neural-Network-Framework-Cpp/build/CMakeFiles/Boilerplate.dir
-/home/simon/Desktop/GitHub_Proj/Neural-Network-Framework-Cpp/build/CMakeFiles/edit_cache.dir
-/home/simon/Desktop/GitHub_Proj/Neural-Network-Framework-Cpp/build/CMakeFiles/rebuild_cache.dir

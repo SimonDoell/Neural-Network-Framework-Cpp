@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/simon/Desktop/GitHub_Proj/Neural-Network-Framework-Cpp/build",
-  "command": "/usr/bin/c++   -g -std=c++26 -O0 -g -Werror -Wall -Wno-unused -o CMakeFiles/Boilerplate.dir/src/main.cpp.o -c /home/simon/Desktop/GitHub_Proj/Neural-Network-Framework-Cpp/src/main.cpp",
-  "file": "/home/simon/Desktop/GitHub_Proj/Neural-Network-Framework-Cpp/src/main.cpp",
-  "output": "CMakeFiles/Boilerplate.dir/src/main.cpp.o"
-}
-]

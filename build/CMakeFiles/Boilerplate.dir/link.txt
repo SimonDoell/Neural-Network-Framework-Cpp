@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/Boilerplate.dir/link.d CMakeFiles/Boilerplate.dir/src/main.cpp.o -o Boilerplate

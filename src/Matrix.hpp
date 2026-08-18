@@ -233,12 +233,12 @@ struct BaseMatrix {
 
         template<typename F>
         void forEach(F&& f) noexcept {
-            static_assert((std::is_invocable_r_v<void, F, float&, uint32_t, uint32_t> || std::is_invocable_r_v<void, F, float&>));
+            static_assert((std::is_invocable_r_v<void, F, value_type&, uint32_t, uint32_t> || std::is_invocable_r_v<void, F, value_type&>));
 
-            constexpr bool withoutRowCol = std::is_invocable_r_v<void, F, float&>;
+            constexpr bool withoutRowCol = std::is_invocable_r_v<void, F, value_type&>;
 
             if constexpr (withoutRowCol) {
-                for (float& v : values) f(v);
+                for (value_type& v : values) f(v);
             } else {
                 for (uint32_t i = 0; i < rows; ++i)
                     for (uint32_t j = 0; j < cols; ++j)
